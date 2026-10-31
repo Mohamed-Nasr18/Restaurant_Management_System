@@ -6,9 +6,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\MealController;
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -20,12 +17,13 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::resource('/categories', CategoryController::class);
-    Route::resource('meals', MealController::class);
+    Route::resource('/meals', MealController::class);
 });
 
 require __DIR__ . '/auth.php';
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/category/{id}',[HomeController::class, 'category'])->name('category.filter');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
